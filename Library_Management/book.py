@@ -14,8 +14,6 @@ def existence_verification(title,author,released_year):
         return False
 
 
-
-
 def add_to_the_library(title,author,released_year):
     if existence_verification(title,author,released_year):
         # If the book is already in the library we increase its quantity by one

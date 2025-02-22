@@ -26,6 +26,7 @@ def book_id_available(book_id):
         print("The book doesn't exist")
         return False
 
+
 def user_id_available(user_id, loan_process):
     cursor.execute("SELECT * FROM users where user_id = ?", (user_id,))
     find = cursor.fetchall()
@@ -46,6 +47,7 @@ def user_id_available(user_id, loan_process):
         print("User doesn't exist")
         return False
 
+
 def loan():
     user_id = input("Enter your user ID ")
     if user_id_available(user_id, "start_loan"):
@@ -63,6 +65,7 @@ def loan():
             connection.commit()
 
             print("You borrow the book")
+
 
 def end_loan():
 
@@ -112,6 +115,7 @@ def end_loan():
     else:
         print("You don't have any loan")
 
+
 def print_user_borrowed_books():
 
     user_id =None
@@ -133,6 +137,7 @@ def print_user_borrowed_books():
                 print(f"Loan ID : {loa[0]} Title : {loa[1]} You borrow it between : {loa[2]} and {loa[3]}\n")
     else:
         print(f"No books borrowed registered for the user ID : {user_id}")
+
 
 def print_all_the_borrowed_books():
     # We retrieve name,lastname, title, start_duration, end_duration from three tables, then we print everything

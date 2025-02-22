@@ -13,6 +13,7 @@ def user_exist(name_,lastname,mail):
     else:
         return False
 
+
 def add_user(name_,lastname,mail, address, sex, age):
     # We verify whether the users already exist or not
     if user_exist(name_,lastname,mail):
@@ -22,12 +23,14 @@ def add_user(name_,lastname,mail, address, sex, age):
         connection.commit()
         print("User created")
 
+
 def remove_user(name_,lastname,mail):
     if user_exist(name_,lastname,mail):
         cursor.execute("DELETE FROM users WHERE name_ = ? AND lastname = ? AND mail = ?", (name_,lastname,mail,))
         connection.commit()
     else:
         print("User doesn't exist")
+
 
 def update_user(name_,lastname,mail):
     # This boring function is used to modify one user characteristic
@@ -53,6 +56,7 @@ def update_user(name_,lastname,mail):
             connection.commit()
     else:
         print("User doesn't exist")
+
 
 def print_user_list():
 
