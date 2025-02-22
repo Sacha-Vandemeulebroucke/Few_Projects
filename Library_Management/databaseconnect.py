@@ -1,5 +1,6 @@
 import sqlite3
 
+# We create our database, if the library.db doesn't exist we create it
 connection = sqlite3.connect('library.db')
 
 # Interact with the database

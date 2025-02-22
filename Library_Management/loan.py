@@ -16,6 +16,7 @@ def book_id_available(book_id):
         finding = cursor.fetchall()
 
         if len(finding) == 1:
+            # If the book remaining quantity is equal to 0 and there are no end duration in the loan table for this book id, meaning that the book is already borrowed by someone else
             print("The book is already loaned")
             return False
         else:
@@ -25,16 +26,19 @@ def book_id_available(book_id):
         print("The book doesn't exist")
         return False
 
-def user_id_available(user_id, loanprocess):
+def user_id_available(user_id, loan_process):
     cursor.execute("SELECT * FROM users where user_id = ?", (user_id,))
     find = cursor.fetchall()
     if len(find) == 1:
+        # If one user with the user ID found
         cursor.execute("SELECT loan_id, book_id, start_duration FROM loan where user_id = ? and end_duration IS NULL", (user_id,))
         number_of_active_loan = cursor.fetchall()
-        if loanprocess == "end_loan":
+        if loan_process == "end_loan":
+            # For the end_loan() function we retrieve all the current borrowed books
             return number_of_active_loan
-        if len(number_of_active_loan) >= 3 and loanprocess == "start_loan":
-            print("The user can loan 3 books at the same time maximum. Please give back a book in order to loan one")
+        if len(number_of_active_loan) >= 3 and loan_process == "start_loan":
+            # The user can borrow 3 books maximum at the same time
+            print("The user can borrow 3 books at the same time maximum. Please give back a book in order to borrow one")
             return False
         else:
             return True
@@ -47,6 +51,7 @@ def loan():
     if user_id_available(user_id, "start_loan"):
         book_id = input("Enter the book ID ")
         if book_id_available(book_id):
+            # If the user and the book are available
 
             # We adjust the quantity by decreasing the number of the book's copy available
             cursor.execute("UPDATE books SET quantity = quantity - 1 WHERE  book_id = ? ", (book_id,))
@@ -56,17 +61,21 @@ def loan():
             start_duration = datetime.datetime.now().strftime("%Y-%m-%d")
             cursor.execute("INSERT INTO loan(book_id,user_id,start_duration)VALUES (?,?,?)",(book_id, user_id, start_duration,))
             connection.commit()
+
             print("You borrow the book")
 
 def end_loan():
 
     user_id = input("Enter your user ID ")
+    # We retrieve all the books borrowed by the user
     loans = user_id_available(user_id,"end_loan")
+
 
     if len(loans) >= 1:
         cursor.execute("select loan_id, title, start_duration from loan as l inner join main.books b on b.book_id = l.book_id where l.user_id = ? and end_duration IS NULL",(user_id,))
         the_loans = cursor.fetchall()
 
+        # In the loan_number we retrieve all the loan id of the books that we have borrowed
         loan_number = []
         finish_one = None
 
@@ -83,14 +92,15 @@ def end_loan():
             print("You must enter an integer")
 
         if finish_one in loan_number:
+            # If the loan ID that we select : finish_one. Is in the loan_number
+
             # We retrieve the book ID from the loan table
             cursor.execute("select b.book_id from loan as l inner join main.books b on b.book_id = l.book_id where l.loan_id = ?",(finish_one,))
 
             book_adjust_quantity = cursor.fetchall()
-            book_id_to_adjust = book_adjust_quantity[0][0]
 
             # The book go back to the library so it's quantity increase by one
-            cursor.execute("UPDATE books SET quantity = quantity + 1 WHERE  book_id = ? ", (book_id_to_adjust,))
+            cursor.execute("UPDATE books SET quantity = quantity + 1 WHERE  book_id = ? ", (book_adjust_quantity[0][0],))
 
             # We add an end duration that close the loan
             end_duration = datetime.datetime.now().strftime("%Y-%m-%d")
@@ -103,7 +113,9 @@ def end_loan():
         print("You don't have any loan")
 
 def print_user_borrowed_books():
+
     user_id =None
+
     try:
         user_id = int(input("Enter your user ID "))
     except ValueError:
@@ -111,19 +123,21 @@ def print_user_borrowed_books():
 
     cursor.execute("select loan_id, title, start_duration, end_duration from loan as l inner join main.books b on b.book_id = l.book_id where l.user_id = ?",(user_id,))
     users_books = cursor.fetchall()
+
     if len(users_books) >= 1:
+        # If the user borrows books then we print them
         for loa in users_books:
             if loa[3] is None:
                 print(f"Loan ID : {loa[0]} Title : {loa[1]} You borrow it since : {loa[2]}\n")
             else:
                 print(f"Loan ID : {loa[0]} Title : {loa[1]} You borrow it between : {loa[2]} and {loa[3]}\n")
     else:
-        print(f"No books registered fo the user ID : {user_id}")
+        print(f"No books borrowed registered for the user ID : {user_id}")
 
 def print_all_the_borrowed_books():
+    # We retrieve name,lastname, title, start_duration, end_duration from three tables, then we print everything
     cursor.execute("select loan_id,name_ as name,lastname, title, start_duration, end_duration from loan as l inner join main.books b on b.book_id = l.book_id inner join main.users as u on u.user_id = l.user_id order by lastname")
-    borrowed_books = cursor.fetchall()
-    for borrowed in borrowed_books:
+    for borrowed in cursor.fetchall():
 
         if borrowed[5] is None:
             print(f"{borrowed[1]} {borrowed[2]} borrows {borrowed[3]} since {borrowed[4]}. Loan ID : {borrowed[0]}\n")

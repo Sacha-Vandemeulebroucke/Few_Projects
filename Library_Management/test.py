@@ -1,38 +1,42 @@
+# import sqlite3
 #
-# books = {
-#     "book1": {"title": "1984", "author": "George Orwell", "year": 1949},
-#     "book2": {"title": "Animal Farm", "author": "George Orwell", "year": 1945},
-#     "book3": {"title": "To Kill a Mockingbird", "author": "Harper Lee", "year": 1960},
-#     "book4": {"title": "Pride and Prejudice", "author": "Jane Austen", "year": 1813},
-#     "book5": {"title": "The Great Gatsby", "author": "F. Scott Fitzgerald", "year": 1925},
-#     "book6": {"title": "War and Peace", "author": "Leo Tolstoy", "year": 1869},
-#     "book7": {"title": "The Hobbit", "author": "J.R.R. Tolkien", "year": 1937},
-#     "book8": {"title": "Crime and Punishment", "author": "Fyodor Dostoevsky", "year": 1866},
-#     "book9": {"title": "Brave New World", "author": "Aldous Huxley", "year": 1932},
-#     "book10": {"title": "Wuthering Heights", "author": "Emily Brontë", "year": 1847},
-#     "book11": {"title": "Jane Eyre", "author": "Charlotte Brontë", "year": 1847},
-#     "book12": {"title": "The Picture of Dorian Gray", "author": "Oscar Wilde", "year": 1890},
-#     "book13": {"title": "Fahrenheit 451", "author": "Ray Bradbury", "year": 1953},
-#     "book14": {"title": "Don Quixote", "author": "Miguel de Cervantes", "year": 1605},
-#     "book15": {"title": "The Alchemist", "author": "Paulo Coelho", "year": 1988},
-#     "book16": {"title": "One Hundred Years of Solitude", "author": "Gabriel García Márquez", "year": 1967},
-#     "book17": {"title": "Dracula", "author": "Bram Stoker", "year": 1897},
-#     "book18": {"title": "The Kite Runner", "author": "Khaled Hosseini", "year": 2003},
-#     "book19": {"title": "The Brothers Karamazov", "author": "Fyodor Dostoevsky", "year": 1880},
-#     "book20": {"title": "The Adventures of Huckleberry Finn", "author": "Mark Twain", "year": 1884},
-#     "book21": {"title": "Les Misérables", "author": "Victor Hugo", "year": 1862},
-#     "book22": {"title": "The Old Man and the Sea", "author": "Ernest Hemingway", "year": 1952},
-#     "book23": {"title": "A Tale of Two Cities", "author": "Charles Dickens", "year": 1859},
-#     "book24": {"title": "The Catcher in the Rye", "author": "J.D. Salinger", "year": 1951},
-#     "book25": {"title": "The Lord of the Rings", "author": "J.R.R. Tolkien", "year": 1954},
-#     "book26": {"title": "Le Petit Prince", "author": "Antoine de Saint-Exupéry", "year": 1943},
-#     "book27": {"title": "Harry Potter and the Sorcerer's Stone", "author": "J.K. Rowling", "year": 1997}
-# }
+# connection = sqlite3.connect('library.db')
+#
+# cursor = connection.cursor()
+#
+# cursor.execute("SELECT * FROM books")
+# every_books = cursor.fetchall()
+# for book in every_books:
+#     print(f"{book[0]} : {book[1]} : {book[2]} : {book[3]} : {book[4]}")
 
 
-bookso = [{'title': '1984', 'author': 'George Orwell', 'year': 1949}, {'title': 'Animal Farm', 'author': 'George Orwell', 'year': 1945}, {'title': 'To Kill a Mockingbird', 'author': 'Harper Lee', 'year': 1960}, {'title': 'Pride and Prejudice', 'author': 'Jane Austen', 'year': 1813}, {'title': 'The Great Gatsby', 'author': 'F. Scott Fitzgerald', 'year': 1925}, {'title': 'War and Peace', 'author': 'Leo Tolstoy', 'year': 1869}, {'title': 'The Hobbit', 'author': 'J.R.R. Tolkien', 'year': 1937}, {'title': 'Crime and Punishment', 'author': 'Fyodor Dostoevsky', 'year': 1866}, {'title': 'Brave New World', 'author': 'Aldous Huxley', 'year': 1932}, {'title': 'Wuthering Heights', 'author': 'Emily Brontë', 'year': 1847}, {'title': 'Jane Eyre', 'author': 'Charlotte Brontë', 'year': 1847}, {'title': 'The Picture of Dorian Gray', 'author': 'Oscar Wilde', 'year': 1890}, {'title': 'Fahrenheit 451', 'author': 'Ray Bradbury', 'year': 1953}, {'title': 'Don Quixote', 'author': 'Miguel de Cervantes', 'year': 1605}, {'title': 'The Alchemist', 'author': 'Paulo Coelho', 'year': 1988}, {'title': 'One Hundred Years of Solitude', 'author': 'Gabriel García Márquez', 'year': 1967}, {'title': 'Dracula', 'author': 'Bram Stoker', 'year': 1897}, {'title': 'The Kite Runner', 'author': 'Khaled Hosseini', 'year': 2003}, {'title': 'The Brothers Karamazov', 'author': 'Fyodor Dostoevsky', 'year': 1880}, {'title': 'The Adventures of Huckleberry Finn', 'author': 'Mark Twain', 'year': 1884}, {'title': 'Les Misérables', 'author': 'Victor Hugo', 'year': 1862}, {'title': 'The Old Man and the Sea', 'author': 'Ernest Hemingway', 'year': 1952}, {'title': 'A Tale of Two Cities', 'author': 'Charles Dickens', 'year': 1859}, {'title': 'The Catcher in the Rye', 'author': 'J.D. Salinger', 'year': 1951}, {'title': 'The Lord of the Rings', 'author': 'J.R.R. Tolkien', 'year': 1954}, {'title': 'Le Petit Prince', 'author': 'Antoine de Saint-Exupéry', 'year': 1943}, {'title': "Harry Potter and the Sorcerer's Stone", 'author': 'J.K. Rowling', 'year': 1997}]
-
-for book in bookso:
-    print(book["title"])
 
 
+import random
+
+def generate_random_data(size):
+    names = ["Alice", "Bob", "Charlie", "David", "Eve", "Frank", "Grace", "Hannah", "Ivy", "Jack", "Kelly", "Liam", "Mia", "Noah", "Olivia", "Peter", "Quinn", "Riley", "Sophia", "Thomas", "Uma", "Victor", "Wendy", "Xavier", "Yara", "Zack", "Ava", "Ethan", "Isabella", "James", "Charlotte", "Daniel", "Amelia", "Michael", "Emily", "William", "Abigail", "Alexander", "Madison", "Benjamin", "Elizabeth", "Elijah", "Sofia", "Lucas", "Scarlett", "Mason", "Victoria", "Henry", "Avery", "Owen", "Nora", "Jackson", "Eleanor", "Caleb", "Hazel"]
+    lastnames = ["Smith", "Johnson", "Williams", "Brown", "Jones", "Garcia", "Miller", "Davis", "Rodriguez", "Martinez", "Hernandez", "Lopez", "Gonzalez", "Wilson", "Anderson", "Thomas", "Taylor", "Moore", "Jackson", "Martin", "Lee", "Perez", "Thompson", "White", "Harris", "Sanchez", "Clark", "Lewis", "Robinson", "Walker", "Hall", "Allen", "Young", "King", "Wright", "Scott", "Green", "Baker", "Adams", "Nelson", "Carter", "Mitchell", "Perez", "Roberts", "Turner", "Phillips", "Campbell", "Parker", "Evans", "Edwards", "Collins"]
+    domains = ["example.com", "test.net", "mail.org", "domain.co"]
+    streets = ["Main St", "Oak Ave", "Pine Ln", "Maple Dr", "Cedar Rd", "Willow Ct", "Birch Pl", "High St", "Low St", "River Rd", "Forest Ave", "Meadow Ln", "Valley Dr", "Summit Rd", "Canyon Ct"]
+    cities = ["New York", "Los Angeles", "Chicago", "Houston", "Phoenix", "Philadelphia", "San Antonio", "San Diego", "Dallas", "San Jose", "Austin", "Jacksonville", "Fort Worth", "Columbus", "Indianapolis"]
+    states = ["AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA", "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY"]
+    sexes = ["Male", "Female"]
+
+    data = []
+    for _ in range(size):
+        name = random.choice(names)
+        lastname = random.choice(lastnames)
+        mail = f"{name.lower()}.{lastname.lower()}@{random.choice(domains)}"
+        street = random.choice(streets)
+        city = random.choice(cities)
+        state = random.choice(states)
+        zip_code = random.randint(10000, 99999)
+        address = f"{random.randint(1, 100)} {street}, {city}, {state} {zip_code}"
+        sex = random.choice(sexes)
+        age = random.randint(18, 65)
+        data.append((name, lastname, mail, address, sex, age))
+    return data
+
+random_data = generate_random_data(50)
+print(random_data)

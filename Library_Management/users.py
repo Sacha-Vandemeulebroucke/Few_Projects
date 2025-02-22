@@ -14,6 +14,7 @@ def user_exist(name_,lastname,mail):
         return False
 
 def add_user(name_,lastname,mail, address, sex, age):
+    # We verify whether the users already exist or not
     if user_exist(name_,lastname,mail):
         print("User already exist")
     else:
@@ -29,32 +30,29 @@ def remove_user(name_,lastname,mail):
         print("User doesn't exist")
 
 def update_user(name_,lastname,mail):
+    # This boring function is used to modify one user characteristic
     if user_exist(name_, lastname, mail):
         choice = input("What do you want to modify ? name/lastname/mail/address/sex/age")
         if choice == "name":
-            modification = input("Enter a new name")
-            cursor.execute("UPDATE users SET name_ = ? WHERE name_ = ? AND lastname = ? AND mail = ? ", (modification,name_,lastname,mail,))
+            cursor.execute("UPDATE users SET name_ = ? WHERE name_ = ? AND lastname = ? AND mail = ? ", (input("Enter a new name"),name_,lastname,mail,))
             connection.commit()
         if choice == "lastname":
-            modification = input("Enter a new name")
-            cursor.execute("UPDATE users SET lastname = ? WHERE name_ = ? AND lastname = ? AND mail = ? ", (modification,name_,lastname,mail,))
+            cursor.execute("UPDATE users SET lastname = ? WHERE name_ = ? AND lastname = ? AND mail = ? ", (input("Enter a new name"),name_,lastname,mail,))
             connection.commit()
         if choice == "mail":
-            modification = input("Enter a new name")
-            cursor.execute("UPDATE users SET mail = ? WHERE name_ = ? AND lastname = ? AND mail = ? ", (modification,name_,lastname,mail,))
+            cursor.execute("UPDATE users SET mail = ? WHERE name_ = ? AND lastname = ? AND mail = ? ", (input("Enter a new name"),name_,lastname,mail,))
             connection.commit()
         if choice == "address":
-            modification = input("Enter a new name")
-            cursor.execute("UPDATE users SET address = ? WHERE name_ = ? AND lastname = ? AND mail = ? ", (modification,name_,lastname,mail,))
+            cursor.execute("UPDATE users SET address = ? WHERE name_ = ? AND lastname = ? AND mail = ? ", (input("Enter a new name"),name_,lastname,mail,))
             connection.commit()
         if choice == "sex":
-            modification = input("Enter a new name")
-            cursor.execute("UPDATE users SET sex = ? WHERE name_ = ? AND lastname = ? AND mail = ? ", (modification,name_,lastname,mail,))
+            cursor.execute("UPDATE users SET sex = ? WHERE name_ = ? AND lastname = ? AND mail = ? ", (input("Enter a new name"),name_,lastname,mail,))
             connection.commit()
         if choice == "age":
-            modification = input("Enter a new name")
-            cursor.execute("UPDATE users SET age = ? WHERE name_ = ? AND lastname = ? AND mail = ? ", (modification,name_,lastname,mail,))
+            cursor.execute("UPDATE users SET age = ? WHERE name_ = ? AND lastname = ? AND mail = ? ", (input("Enter a new name"),name_,lastname,mail,))
             connection.commit()
+    else:
+        print("User doesn't exist")
 
 def print_user_list():
 
